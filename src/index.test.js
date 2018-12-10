@@ -82,7 +82,7 @@ describe('.delete()', () => {
     singlyLinkedList.insert({ name: 1 });
     singlyLinkedList.insert({ name: 2 });
     singlyLinkedList.insert({ name: 3 });
-    singlyLinkedList.delete({ name: 3 }, ({ name: nameA }, { name: nameB }) => nameA === nameB);
+    singlyLinkedList.delete(value => value.name === 3);
     const actual = singlyLinkedList.length;
 
     expect(actual).toBe(expected);
@@ -123,10 +123,9 @@ describe('.search()', () => {
   });
 
   test('Finds an object with a custom comparator', () => {
-    const comparator = ({ name: nameA }, { name: nameB }) => nameA === nameB;
     const expected = { name: 3 };
 
-    const actual = singlyLinkedList.search({ name: 3 }, comparator).value;
+    const actual = singlyLinkedList.search(value => value.name === 3).value;
 
     expect(actual).toEqual(expected);
   });

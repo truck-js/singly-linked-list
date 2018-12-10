@@ -20,19 +20,28 @@ $ npm install --save @truck/singly-linked-list
 
 Build a new _Singly Linked-List_.
 
-### _Methods >_ `delete(value: any, comparator?: (a: any, b: any) => boolean): boolean` (_O(n)_)
+### _Methods >_ `delete(value: any): boolean` (_O(n)_)
 
-Deletes a value from the _Singly Linked-List_. The optional `comparator` method can be passed-in,
-otherwise a default `===` comparator is used.
+Deletes a value from the _Singly Linked-List_. The default `===` comparator is used.
+
+### _Methods >_ `delete(comparator: (value: any) => boolean): boolean` (_O(n)_)
+
+Deletes a value from the _Singly Linked-List_. Uses the `comparator` to determine whether the
+`value` should be deleted.
 
 ### _Methods >_ `insert(value: any): void` (_O(1)_)
 
 Inserts a value at the beginning of the _Singly Linked-List_.
 
-### _Methods >_ `search(value: any, comparator?: (a: any, b: any) => boolean): Node` (_O(n)_)
+### _Methods >_ `search(value: any): Node|undefined` (_O(n)_)
 
-Returns the first `value` in the _Singly Linked-List_ that matches. The optional `comparator` method
-can be passed-in, otherwise a default `===` comparator is used.
+Returns the first `value` in the _Singly Linked-List_ that matches `value`. The default `===`
+comparator is used.
+
+### _Methods >_ `search(comparator: (value: any) => boolean): Node|undefined` (_O(n)_)
+
+Returns the first `value` in the _Singly Linked-List_ that matches. Uses `comparator` to determine
+whether the `value` matches.
 
 ### _Methods >_ `toArray(): any[]` (_O(n)_)
 

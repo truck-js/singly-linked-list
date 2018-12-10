@@ -1,6 +1,8 @@
+import isFunction from 'lodash.isfunction';
+
 import Node from './node';
 
-const defaultComparator = (a, b) => a === b;
+const defaultComparator = a => b => a === b;
 
 class SinglyLinkedList {
   constructor() {
@@ -12,12 +14,13 @@ class SinglyLinkedList {
     return this.listSize;
   }
 
-  delete(value, comparator = defaultComparator) {
+  delete(value) {
+    const comparator = isFunction(value) ? value : defaultComparator(value);
     let current = this.head;
     if (!current) {
       return false;
     }
-    if (comparator(current.value, value)) {
+    if (comparator(current.value)) {
       this.head = this.head.next;
       this.listSize -= 1;
       return true;
@@ -25,7 +28,7 @@ class SinglyLinkedList {
     while (current) {
       const { next } = current;
       if (next) {
-        if (comparator(next.value, value)) {
+        if (comparator(next.value)) {
           current.next = next.next;
           this.listSize -= 1;
           return true;
@@ -45,10 +48,11 @@ class SinglyLinkedList {
     this.listSize += 1;
   }
 
-  search(value, comparator = defaultComparator) {
+  search(value) {
+    const comparator = isFunction(value) ? value : defaultComparator(value);
     let current = this.head;
     while (current) {
-      if (comparator(current.value, value)) {
+      if (comparator(current.value)) {
         return current;
       }
       current = current.next;
