@@ -48,7 +48,6 @@ class SinglyLinkedList {
     this.listSize += 1;
   }
 
-
   insertAfter(value, after) {
     const comparator = isFunction(after) ? after : defaultComparator(after);
     const node = new Node(value);
@@ -70,7 +69,6 @@ class SinglyLinkedList {
       }
     }
   }
-
 
   insertBefore(value, before) {
     const comparator = isFunction(before) ? before : defaultComparator(before);
