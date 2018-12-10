@@ -2,7 +2,10 @@
   "name": "@truck/singly-linked-list",
   "version": "0.0.0-development",
   "description": "A JavaScript implementation of the Singly Linked-List data structure",
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "files": [
+    "/lib"
+  ],
   "scripts": {
     "build": "babel src --out-dir lib --ignore src/**/*.test.js",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
