@@ -33,6 +33,26 @@ Deletes a value from the _Singly Linked-List_. Uses the `comparator` to determin
 
 Inserts a value at the beginning of the _Singly Linked-List_.
 
+### _Methods >_ `insertAfter(value: any, after: any): void` (_O(n)_)
+
+Inserts `value` after `after`. If `after` is not found `value` is inserted at the end of the
+_Singly Linked-List_.
+
+### _Methods >_ `insertAfter(value: any, comparator: (value: any) => boolean): void` (_O(n)_)
+
+Inserts `value` after `after` comparator returns `true`. If `after` does not return `true` then
+`value` is inserted at the end of the _Singly Linked-List_.
+
+### _Methods >_ `insertBefore(value: any, before: any): void` (_O(n)_)
+
+Inserts `value` before `before`. If `before` is not found `value` is inserted at the end of the
+_Singly Linked-List_.
+
+### _Methods >_ `insertBefore(value: any, comparator: (value: any) => boolean): void` (_O(n)_)
+
+Inserts `value` before `before` comparator returns `true`. If `before` does not return `true` then
+`value` is inserted at the end of the _Singly Linked-List_.
+
 ### _Methods >_ `search(value: any): Node|undefined` (_O(n)_)
 
 Returns the first `value` in the _Singly Linked-List_ that matches `value`. The default `===`
