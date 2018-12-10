@@ -48,6 +48,50 @@ class SinglyLinkedList {
     this.listSize += 1;
   }
 
+  insertAfter(value, after) {
+    const comparator = isFunction(after) ? after : defaultComparator(after);
+    const node = new Node(value);
+    let current = this.head;
+    if (!current) {
+      this.head = node;
+    } else {
+      while (current) {
+        const { next } = current;
+        if (!next) {
+          current.next = node;
+          break;
+        } else if (comparator(current.value)) {
+          node.next = next;
+          current.next = node;
+          break;
+        }
+        current = next;
+      }
+    }
+  }
+
+  insertBefore(value, before) {
+    const comparator = isFunction(before) ? before : defaultComparator(before);
+    const node = new Node(value);
+    let current = this.head;
+    if (!current) {
+      this.head = node;
+    } else {
+      while (current) {
+        const { next } = current;
+        if (!next) {
+          current.next = node;
+          break;
+        } else if (comparator(next.value)) {
+          node.next = next;
+          current.next = node;
+          break;
+        }
+        current = next;
+      }
+    }
+  }
+
   search(value) {
     const comparator = isFunction(value) ? value : defaultComparator(value);
     let current = this.head;
