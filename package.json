@@ -45,5 +45,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "lodash.isfunction": "^3.0.9"
   }
 }
