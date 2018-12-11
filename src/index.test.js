@@ -178,6 +178,10 @@ describe('.insertAfter()', () => {
 
     expect(actual).toBe(expected);
   });
+
+  test('Increments the list length correctly', () => {
+    expect(singlyLinkedList.length).toBe(5);
+  });
 });
 
 describe('.insertBefore()', () => {
@@ -228,6 +232,10 @@ describe('.insertBefore()', () => {
     const actual = singlyLinkedList.head.next.next.value;
 
     expect(actual).toBe(expected);
+  });
+
+  test('Increments the list length correctly', () => {
+    expect(singlyLinkedList.length).toBe(5);
   });
 });
 
