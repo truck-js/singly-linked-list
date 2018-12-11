@@ -68,6 +68,7 @@ class SinglyLinkedList {
         current = next;
       }
     }
+    this.listSize += 1;
   }
 
   insertBefore(value, before) {
@@ -90,6 +91,7 @@ class SinglyLinkedList {
         current = next;
       }
     }
+    this.listSize += 1;
   }
 
   search(value) {
