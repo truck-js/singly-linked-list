@@ -117,125 +117,205 @@ describe('.insert()', () => {
     singlyLinkedList = new SinglyLinkedList();
   });
 
-  test('Inserts the values successfully', () => {
-    const expected = 3;
+  describe('Inserts the first value successfully', () => {
+    beforeAll(() => singlyLinkedList.insert(1));
 
-    singlyLinkedList.insert(1);
-    singlyLinkedList.insert(2);
-    singlyLinkedList.insert(3);
-    const actual = singlyLinkedList.length;
+    test('Adds the value correctly from \'head\'', () => {
+      expect(singlyLinkedList.head.value).toBe(1);
+    });
 
-    expect(actual).toBe(expected);
+    test('Updates the length of the list correctly', () => {
+      expect(singlyLinkedList.length).toBe(1);
+    });
+  });
+
+  describe('Inserts the second value successfully', () => {
+    beforeAll(() => singlyLinkedList.insert(2));
+
+    test('Adds the value correctly from \'head\'', () => {
+      expect(singlyLinkedList.head.value).toBe(2);
+    });
+
+    test('Can traverse all the way to the end of the list', () => {
+      expect(singlyLinkedList.head.next.value).toBe(1);
+    });
+
+    test('Updates the length of the list correctly', () => {
+      expect(singlyLinkedList.length).toBe(2);
+    });
+  });
+
+  describe('Inserts a third value successfully', () => {
+    beforeAll(() => singlyLinkedList.insert(3));
+
+    test('Adds the value correctly from \'head\'', () => {
+      expect(singlyLinkedList.head.value).toBe(3);
+    });
+
+    test('Can traverse all the way to the end of the list', () => {
+      expect(singlyLinkedList.head.next.next.value).toBe(1);
+    });
+
+    test('Updates the length of the list correctly', () => {
+      expect(singlyLinkedList.length).toBe(3);
+    });
   });
 });
 
-describe('.insertAfter()', () => {
-  const VALUE_ONE = 'VALUE_ONE';
-  const VALUE_TWO = 'VALUE_TWO';
-  const VALUE_THREE = { three: 'three' };
-  const VALUE_FOUR = 'VALUE_FOUR';
-  const VALUE_FIVE = 'VALUE_FIVE';
 
+describe('.insertAfter()', () => {
   let singlyLinkedList;
 
   beforeAll(() => {
     singlyLinkedList = new SinglyLinkedList();
   });
 
-  test('Adds the value as \'head\' if no value exists', () => {
-    const expected = VALUE_ONE;
+  describe('Inserts a value into an empty list', () => {
+    beforeAll(() => singlyLinkedList.insertAfter(1, 1000));
 
-    singlyLinkedList.insertAfter(VALUE_ONE, 12);
-    const actual = singlyLinkedList.head.value;
+    test('Adds the value correctly from \'head\'', () => {
+      expect(singlyLinkedList.head.value).toBe(1);
+    });
 
-    expect(actual).toBe(expected);
+    test('Updates the length of the list correctly', () => {
+      expect(singlyLinkedList.length).toBe(1);
+    });
+
+    test('Does not add a \'next\' to the last value in the list', () => {
+      expect(singlyLinkedList.head.next).toBe(undefined);
+    });
   });
 
-  test('Adds the value at the end if the given \'before\' is not found', () => {
-    const expected = VALUE_TWO;
+  describe('Inserts a value at the end when \'after\' is not found', () => {
+    beforeAll(() => singlyLinkedList.insertAfter(2, 1000));
 
-    singlyLinkedList.insertAfter(VALUE_TWO, 12);
-    const actual = singlyLinkedList.head.next.value;
+    test('Adds the value correctly from \'head\'', () => {
+      expect(singlyLinkedList.head.next.value).toBe(2);
+    });
 
-    expect(actual).toBe(expected);
+    test('Updates the length of the list correctly', () => {
+      expect(singlyLinkedList.length).toBe(2);
+    });
+
+    test('Does not add a \'next\' to the last value in the list', () => {
+      expect(singlyLinkedList.head.next.next).toBe(undefined);
+    });
   });
 
-  test('Adds the value after the given value if \'after\' is found', () => {
-    const expected = VALUE_THREE;
+  describe('Inserts a value after another in the list', () => {
+    beforeAll(() => singlyLinkedList.insertAfter(3, 2));
 
-    singlyLinkedList.insertAfter(VALUE_THREE, VALUE_TWO);
-    const actual = singlyLinkedList.head.next.next.value;
+    test('Adds the value correctly from \'head\'', () => {
+      expect(singlyLinkedList.head.next.next.value).toBe(3);
+    });
 
-    expect(actual).toBe(expected);
+    test('Updates the length of the list correctly', () => {
+      expect(singlyLinkedList.length).toBe(3);
+    });
+
+    test('Does not add a \'next\' to the last value in the list', () => {
+      expect(singlyLinkedList.head.next.next.next).toBe(undefined);
+    });
   });
 
-  test('Adds the value after the given value if \'after\' is a comparator that returns \'true\'', () => {
-    const expected = VALUE_FIVE;
+  describe('Inserts a value after another in the list with a custom comparator', () => {
+    beforeAll(() => singlyLinkedList.insertAfter(4, value => value === 2));
 
-    singlyLinkedList.insertAfter(VALUE_FOUR, value => value.three === 'three');
-    singlyLinkedList.insertAfter(VALUE_FIVE, value => value.three === 'three');
-    const actual = singlyLinkedList.head.next.next.next.value;
+    test('Adds the value correctly from \'head\'', () => {
+      expect(singlyLinkedList.head.next.next.value).toBe(4);
+    });
 
-    expect(actual).toBe(expected);
-  });
+    test('Updates the length of the list correctly', () => {
+      expect(singlyLinkedList.length).toBe(4);
+    });
 
-  test('Increments the list length correctly', () => {
-    expect(singlyLinkedList.length).toBe(5);
+    test('Can traverse all the way to the end of the list', () => {
+      expect(singlyLinkedList.head.next.next.next.value).toBe(3);
+    });
+
+    test('Does not add a \'next\' to the last value in the list', () => {
+      expect(singlyLinkedList.head.next.next.next.next).toBe(undefined);
+    });
   });
 });
 
 describe('.insertBefore()', () => {
-  const VALUE_ONE = 'VALUE_ONE';
-  const VALUE_TWO = 'VALUE_TWO';
-  const VALUE_THREE = { three: 'three' };
-  const VALUE_FOUR = 'VALUE_FOUR';
-  const VALUE_FIVE = { five: 'five' };
-
   let singlyLinkedList;
 
   beforeAll(() => {
     singlyLinkedList = new SinglyLinkedList();
   });
 
-  test('Adds the value as \'head\' if no values exist', () => {
-    const expected = VALUE_ONE;
+  describe('Inserts a value into an empty list', () => {
+    beforeAll(() => singlyLinkedList.insertBefore(1, 1000));
 
-    singlyLinkedList.insertBefore(VALUE_ONE, 12);
-    const actual = singlyLinkedList.head.value;
+    test('Adds the value correctly from \'head\'', () => {
+      expect(singlyLinkedList.head.value).toBe(1);
+    });
 
-    expect(actual).toBe(expected);
+    test('Updates the length of the list correctly', () => {
+      expect(singlyLinkedList.length).toBe(1);
+    });
+
+    test('Does not add a \'next\' to the last value in the list', () => {
+      expect(singlyLinkedList.head.next).toBe(undefined);
+    });
   });
 
-  test('Adds the value at the end if the given \'before\' is not found', () => {
-    const expected = VALUE_TWO;
+  describe('Inserts a value at the end if no \'before\' is found', () => {
+    beforeAll(() => singlyLinkedList.insertBefore(2, 1000));
 
-    singlyLinkedList.insertBefore(VALUE_TWO, 12);
-    const actual = singlyLinkedList.head.next.value;
+    test('Adds the value correctly from \'head\'', () => {
+      expect(singlyLinkedList.head.next.value).toBe(2);
+    });
 
-    expect(actual).toBe(expected);
+    test('Updates the length of the list correctly', () => {
+      expect(singlyLinkedList.length).toBe(2);
+    });
+
+    test('Does not add a \'next\' to the last value in the list', () => {
+      expect(singlyLinkedList.head.next.next).toBe(undefined);
+    });
   });
 
-  test('Adds the value before the given value if \'before\' is found', () => {
-    const expected = VALUE_THREE;
+  describe('Inserts a value before another in the list', () => {
+    beforeAll(() => singlyLinkedList.insertBefore(3, 2));
 
-    singlyLinkedList.insertBefore(VALUE_THREE, VALUE_TWO);
-    const actual = singlyLinkedList.head.next.value;
+    test('Adds the value correctly from \'head\'', () => {
+      expect(singlyLinkedList.head.next.value).toBe(3);
+    });
 
-    expect(actual).toBe(expected);
+    test('Updates the length of the list correctly', () => {
+      expect(singlyLinkedList.length).toBe(3);
+    });
+
+    test('Can traverse all the way to the end of the list', () => {
+      expect(singlyLinkedList.head.next.next.value).toBe(2);
+    });
+
+    test('Does not add a \'next\' to the last value in the list', () => {
+      expect(singlyLinkedList.head.next.next.next).toBe(undefined);
+    });
   });
 
-  test('Adds the value before the given value if \'before\' is a comparator that returns \'true\'', () => {
-    const expected = VALUE_FOUR;
+  describe('Inserts a value before another in the list with a custom comparator', () => {
+    beforeAll(() => singlyLinkedList.insertBefore(4, value => value === 2));
 
-    singlyLinkedList.insertBefore(VALUE_FIVE, VALUE_TWO);
-    singlyLinkedList.insertBefore(VALUE_FOUR, value => value.five === 'five');
-    const actual = singlyLinkedList.head.next.next.value;
+    test('Adds the value correctly from \'head\'', () => {
+      expect(singlyLinkedList.head.next.next.value).toBe(4);
+    });
 
-    expect(actual).toBe(expected);
-  });
+    test('Updates the length of the list correctly', () => {
+      expect(singlyLinkedList.length).toBe(4);
+    });
 
-  test('Increments the list length correctly', () => {
-    expect(singlyLinkedList.length).toBe(5);
+    test('Can traverse all the way to the end of the list', () => {
+      expect(singlyLinkedList.head.next.next.next.value).toBe(2);
+    });
+
+    test('Does not add a \'next\' to the last value in the list', () => {
+      expect(singlyLinkedList.head.next.next.next.next).toBe(undefined);
+    });
   });
 });
 
