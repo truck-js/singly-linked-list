@@ -357,17 +357,26 @@ describe('.toArray()', () => {
     expect(singlyLinkedList.toArray()).toEqual([]);
   });
 
-  test('Returns an array of items inside the SinglyLinkedList', () => {
-    const VALUE_A = 'VALUE_A';
-    const VALUE_B = 'VALUE_B';
-    const VALUE_C = 'VALUE_C';
-    const expected = [VALUE_A, VALUE_B, VALUE_C];
+  describe('After values have been inserted', () => {
+    beforeAll(() => {
+      singlyLinkedList.insert(1);
+      singlyLinkedList.insert(2);
+      singlyLinkedList.insert(3);
+      singlyLinkedList.insert(4);
+      singlyLinkedList.insert(5);
+    });
 
-    singlyLinkedList.insert(VALUE_C);
-    singlyLinkedList.insert(VALUE_B);
-    singlyLinkedList.insert(VALUE_A);
-    const actual = singlyLinkedList.toArray();
+    test('Returns an array of items inside the SinglyLinkedList', () => {
+      expect(singlyLinkedList.toArray()).toEqual([5, 4, 3, 2, 1]);
+    });
 
-    expect(actual).toEqual(expected);
+    test('Can be used as a \'map\' method if passed a callback', () => {
+      const callback = node => (node.value + ((node.next && node.next.value) || 0));
+      const expected = [9, 7, 5, 3, 1];
+
+      const actual = singlyLinkedList.toArray(callback);
+
+      expect(actual).toEqual(expected);
+    });
   });
 });
