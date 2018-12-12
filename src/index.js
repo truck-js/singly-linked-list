@@ -2,6 +2,7 @@ import isFunction from 'lodash.isfunction';
 
 import Node from './node';
 
+const defaultCallback = a => a.value;
 const defaultComparator = a => b => a === b;
 
 class SinglyLinkedList {
@@ -106,11 +107,11 @@ class SinglyLinkedList {
     return undefined;
   }
 
-  toArray() {
+  toArray(callback = defaultCallback) {
     const returnArray = [];
     let current = this.head;
     while (current) {
-      returnArray.push(current.value);
+      returnArray.push(callback(current));
       current = current.next;
     }
     return returnArray;

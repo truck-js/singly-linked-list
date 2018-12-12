@@ -67,6 +67,11 @@ determine whether the `value` matches.
 
 **O(n)**. Converts the _Singly Linked-List_'s values to an array.
 
+### `toArray(callback: (node: Node) => any): any[]`
+
+**O(n)**. Converts the _Singly Linked-List_ to an array, the `callback` receives the `Node` with
+each iteration.
+
 ## Properties
 
 ### `.length: number`
